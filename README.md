@@ -9,7 +9,15 @@ Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ
 
 ---------
 
+
+
+
+
 This is a Php class aimed at serving easy to use, out of the box API acces to the Blockchain API's (Both Merchant and public api)
+
+
+
+
 
 ### Ready the class
 ```php
@@ -23,7 +31,11 @@ This is a Php class aimed at serving easy to use, out of the box API acces to th
 | identifier      | yes | 
 | main password      | no      |  
 | second password | no      |     
-    
+
+
+
+
+
 ### Getters and setters
 You may set or get the language at any time
 ```php
@@ -41,6 +53,10 @@ You may set a secondary password at any time, if double-encryption is enabled
     $api->secondPassword("Your second password");
 ```
 
+
+
+
+
 ### Helper methods
 You may convert Satoshi to BTC currency
 ```php
@@ -52,7 +68,10 @@ You may convert BTC to Satoshi currency
     print $api->BTCToSatoshi(0.19283829); //Result 19283829
 ```
 
-    
+
+
+
+
 ### Generating Receiving Addresses
 https://blockchain.info/da/api/api_receive
 
@@ -69,6 +88,9 @@ Its now as easy as this, to generate a reciving address
 | ------------- |:-------------:|
 | address      | yes | 
 | callback url      | yes      |  
+
+
+
 
 
 ### Making Outgoing Payments
@@ -89,6 +111,9 @@ You may send a payment using the following method
 | extras      | no      |  array containing extra parameters |
 
 
+
+
+
 ### Fetching the wallet balance
 https://blockchain.info/da/api/blockchain_wallet_api
 
@@ -102,6 +127,9 @@ You may fetch your wallets balance this way
 **The balance method takes no arguments**
 
 
+
+
+
 ### Listing Addresses
 https://blockchain.info/da/api/blockchain_wallet_api
 
@@ -111,6 +139,10 @@ You may list all your addresses this way
       $response = $api->addresses();
     } catch(Exception $e) {}
 ```
+
+
+
+
 
 ### Getting the balance of an address
 https://blockchain.info/da/api/blockchain_wallet_api
@@ -130,6 +162,9 @@ Get the balance of a single address
 | confirmations      | no      |  Minimum number of confirmations required |
 
 
+
+
+
 ### Generating a new address
 https://blockchain.info/da/api/blockchain_wallet_api
 
@@ -144,6 +179,9 @@ Create a new address
 | Argument        | required         | description         |
 | ------------- |:-------------:|:-------------:|
 | label      | no | Give your address a human readable name |
+
+
+
 
 
 ### Archiving an address
@@ -162,6 +200,9 @@ Archive an address
 | address      | yes | Address to archive |
 
 
+
+
+
 ### Unarchiving an address
 https://blockchain.info/da/api/blockchain_wallet_api
 
@@ -176,6 +217,9 @@ Unarchive an address
 | Argument        | required         | description         |
 | ------------- |:-------------:|:-------------:|
 | address      | yes | Address to archive |
+
+
+
 
 
 ### Consolidating Addresses
@@ -194,9 +238,21 @@ Unarchive an address
 | days      | no | Consolidate addresses which has not had any transactions in this many days |
 
 
+
+
+
 ----
 
+
+
+
+
 **Thank you for reading/using**
+
 **JonasMe**
+
+
+
+
 
 Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ
