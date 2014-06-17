@@ -1,0 +1,343 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Blockchain-php by JonasMe</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Blockchain-php</h1>
+        <p>Unofficial php class for the Blockchain API</p>
+
+        <p class="view"><a href="https://github.com/JonasMe/Blockchain-php">View the Project on GitHub <small>JonasMe/Blockchain-php</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/JonasMe/Blockchain-php/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/JonasMe/Blockchain-php/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/JonasMe/Blockchain-php">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="blockchain-php" class="anchor" href="#blockchain-php"><span class="octicon octicon-link"></span></a>Blockchain-php</h1>
+
+<p>JonasMe</p>
+
+<p><a href="mailto:jonas@mersholm.dk">jonas@mersholm.dk</a></p>
+
+<p>Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ</p>
+
+<hr><p>This is a Php class aimed at serving easy to use, out of the box API acces to the Blockchain API's (Both Merchant and public api)</p>
+
+<h3>
+<a name="ready-the-class" class="anchor" href="#ready-the-class"><span class="octicon octicon-link"></span></a>Ready the class</h3>
+
+<div class="highlight highlight-php"><pre>  <span class="k">require_once</span><span class="p">(</span> <span class="s2">"blockchainPhp.php"</span> <span class="p">);</span>
+  <span class="nv">$api</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BlockchainPhp</span><span class="p">(</span><span class="s2">"blockchain-identifier"</span><span class="p">,</span><span class="s2">"password"</span><span class="p">);</span>
+</pre></div>
+
+<p><strong>The constructor takes the following arguments</strong></p>
+
+<table>
+<thead><tr>
+<th>Argument</th>
+<th align="center">required</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>identifier</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td>main password</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td>second password</td>
+<td align="center">no</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="getters-and-setters" class="anchor" href="#getters-and-setters"><span class="octicon octicon-link"></span></a>Getters and setters</h3>
+
+<p>You may set or get the language at any time</p>
+
+<div class="highlight highlight-php"><pre>    <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">language</span><span class="p">(</span><span class="s2">"ru"</span><span class="p">);</span>
+    <span class="k">print</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">language</span><span class="p">();</span>
+</pre></div>
+
+<p>You may set the identifier at any time</p>
+
+<div class="highlight highlight-php"><pre>    <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">identifier</span><span class="p">(</span><span class="s2">"new-identifier"</span><span class="p">);</span>
+</pre></div>
+
+<p>You may set a secondary password at any time, if double-encryption is enabled</p>
+
+<div class="highlight highlight-php"><pre>    <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">secondPassword</span><span class="p">(</span><span class="s2">"Your second password"</span><span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="helper-methods" class="anchor" href="#helper-methods"><span class="octicon octicon-link"></span></a>Helper methods</h3>
+
+<p>You may convert Satoshi to BTC currency</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">print</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">satoshiToBTC</span><span class="p">(</span><span class="mi">19283829</span><span class="p">);</span> <span class="c1">//Result 0.19283829</span>
+</pre></div>
+
+<p>You may convert BTC to Satoshi currency</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">print</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">BTCToSatoshi</span><span class="p">(</span><span class="mf">0.19283829</span><span class="p">);</span> <span class="c1">//Result 19283829</span>
+</pre></div>
+
+<h3>
+<a name="generating-receiving-addresses" class="anchor" href="#generating-receiving-addresses"><span class="octicon octicon-link"></span></a>Generating Receiving Addresses</h3>
+
+<p><a href="https://blockchain.info/da/api/api_receive">https://blockchain.info/da/api/api_receive</a></p>
+
+<p>Its now as easy as this, to generate a reciving address</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">try</span> <span class="p">{</span>
+      <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">generateReceiveToken</span><span class="p">(</span><span class="s2">"1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ"</span><span class="p">,</span><span class="s2">"http://callback.url"</span><span class="p">);</span>
+      <span class="k">print</span> <span class="s2">"Pay to "</span> <span class="o">.</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">input_address</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<p><strong>The generateReceiveToken method takes the following arguments</strong></p>
+
+<table>
+<thead><tr>
+<th>Argument</th>
+<th align="center">required</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>address</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td>callback url</td>
+<td align="center">yes</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="making-outgoing-payments" class="anchor" href="#making-outgoing-payments"><span class="octicon octicon-link"></span></a>Making Outgoing Payments</h3>
+
+<p><a href="https://blockchain.info/da/api/blockchain_wallet_api">https://blockchain.info/da/api/blockchain_wallet_api</a></p>
+
+<p>You may send a payment using the following method</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">try</span> <span class="p">{</span>
+      <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">pay</span><span class="p">(</span><span class="s2">"1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ"</span><span class="p">,</span><span class="mf">1.1</span> <span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<p><strong>The pay method takes the following arguments</strong></p>
+
+<table>
+<thead><tr>
+<th>Argument</th>
+<th align="center">required</th>
+<th align="center">description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>recipient</td>
+<td align="center">yes</td>
+<td align="center">Address of recipient</td>
+</tr>
+<tr>
+<td>amount</td>
+<td align="center">yes</td>
+<td align="center">Amount in bitcoins to send</td>
+</tr>
+<tr>
+<td>extras</td>
+<td align="center">no</td>
+<td align="center">array containing extra parameters</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="fetching-the-wallet-balance" class="anchor" href="#fetching-the-wallet-balance"><span class="octicon octicon-link"></span></a>Fetching the wallet balance</h3>
+
+<p><a href="https://blockchain.info/da/api/blockchain_wallet_api">https://blockchain.info/da/api/blockchain_wallet_api</a></p>
+
+<p>You may fetch your wallets balance this way</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">try</span> <span class="p">{</span>
+      <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">balance</span><span class="p">();</span>
+      <span class="k">print</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">satoshiToBTC</span><span class="p">(</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">balance</span> <span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<p><strong>The balance method takes no arguments</strong></p>
+
+<h3>
+<a name="listing-addresses" class="anchor" href="#listing-addresses"><span class="octicon octicon-link"></span></a>Listing Addresses</h3>
+
+<p><a href="https://blockchain.info/da/api/blockchain_wallet_api">https://blockchain.info/da/api/blockchain_wallet_api</a></p>
+
+<p>You may list all your addresses this way</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">try</span> <span class="p">{</span>
+      <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">addresses</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<h3>
+<a name="getting-the-balance-of-an-address" class="anchor" href="#getting-the-balance-of-an-address"><span class="octicon octicon-link"></span></a>Getting the balance of an address</h3>
+
+<p><a href="https://blockchain.info/da/api/blockchain_wallet_api">https://blockchain.info/da/api/blockchain_wallet_api</a></p>
+
+<p>Get the balance of a single address</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">try</span> <span class="p">{</span>
+      <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">addressBalance</span><span class="p">(</span><span class="s2">"1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ"</span><span class="p">);</span>
+      <span class="k">print</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">satoshiToBTC</span><span class="p">(</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">balance</span> <span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<p><strong>The addressBalance method takes the following arguments</strong></p>
+
+<table>
+<thead><tr>
+<th>Argument</th>
+<th align="center">required</th>
+<th align="center">description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>address</td>
+<td align="center">yes</td>
+<td align="center">Address to check balance of</td>
+</tr>
+<tr>
+<td>confirmations</td>
+<td align="center">no</td>
+<td align="center">Minimum number of confirmations required</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="generating-a-new-address" class="anchor" href="#generating-a-new-address"><span class="octicon octicon-link"></span></a>Generating a new address</h3>
+
+<p><a href="https://blockchain.info/da/api/blockchain_wallet_api">https://blockchain.info/da/api/blockchain_wallet_api</a></p>
+
+<p>Create a new address</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">try</span> <span class="p">{</span>
+      <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">newAddress</span><span class="p">(</span><span class="s2">"My new address"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<p><strong>The newAddress method takes the following argument</strong></p>
+
+<table>
+<thead><tr>
+<th>Argument</th>
+<th align="center">required</th>
+<th align="center">description</th>
+</tr></thead>
+<tbody><tr>
+<td>label</td>
+<td align="center">no</td>
+<td align="center">Give your address a human readable name</td>
+</tr></tbody>
+</table><h3>
+<a name="archiving-an-address" class="anchor" href="#archiving-an-address"><span class="octicon octicon-link"></span></a>Archiving an address</h3>
+
+<p><a href="https://blockchain.info/da/api/blockchain_wallet_api">https://blockchain.info/da/api/blockchain_wallet_api</a></p>
+
+<p>Archive an address</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">try</span> <span class="p">{</span>
+      <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">archiveAddress</span><span class="p">(</span><span class="s2">"1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<p><strong>The archiveAddress method takes the following argument</strong></p>
+
+<table>
+<thead><tr>
+<th>Argument</th>
+<th align="center">required</th>
+<th align="center">description</th>
+</tr></thead>
+<tbody><tr>
+<td>address</td>
+<td align="center">yes</td>
+<td align="center">Address to archive</td>
+</tr></tbody>
+</table><h3>
+<a name="unarchiving-an-address" class="anchor" href="#unarchiving-an-address"><span class="octicon octicon-link"></span></a>Unarchiving an address</h3>
+
+<p><a href="https://blockchain.info/da/api/blockchain_wallet_api">https://blockchain.info/da/api/blockchain_wallet_api</a></p>
+
+<p>Unarchive an address</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">try</span> <span class="p">{</span>
+      <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">unArchiveAddress</span><span class="p">(</span><span class="s2">"1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<p><strong>The unArchiveAddress method takes the following argument</strong></p>
+
+<table>
+<thead><tr>
+<th>Argument</th>
+<th align="center">required</th>
+<th align="center">description</th>
+</tr></thead>
+<tbody><tr>
+<td>address</td>
+<td align="center">yes</td>
+<td align="center">Address to archive</td>
+</tr></tbody>
+</table><h3>
+<a name="consolidating-addresses" class="anchor" href="#consolidating-addresses"><span class="octicon octicon-link"></span></a>Consolidating Addresses</h3>
+
+<p><a href="https://blockchain.info/da/api/blockchain_wallet_api">https://blockchain.info/da/api/blockchain_wallet_api</a></p>
+
+<p>Unarchive an address</p>
+
+<div class="highlight highlight-php"><pre>    <span class="k">try</span> <span class="p">{</span>
+      <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$api</span><span class="o">-&gt;</span><span class="na">consolidateAddresses</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<p><strong>The consolidateAddresses method takes the following argument</strong></p>
+
+<table>
+<thead><tr>
+<th>Argument</th>
+<th align="center">required</th>
+<th align="center">description</th>
+</tr></thead>
+<tbody><tr>
+<td>days</td>
+<td align="center">no</td>
+<td align="center">Consolidate addresses which has not had any transactions in this many days</td>
+</tr></tbody>
+</table><hr><p><strong>Thank you for reading/using</strong></p>
+
+<p><strong>JonasMe</strong></p>
+
+<p>Donations are greatly appreciated at : 1E4FU9CErrDatuHojDoudEuqjSadB1sRaJ</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/JonasMe">JonasMe</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
